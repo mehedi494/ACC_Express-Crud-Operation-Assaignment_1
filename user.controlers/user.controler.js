@@ -104,25 +104,28 @@ module.exports.updateBulkUser = (req, res, next) => {
     const existingData = JSON.parse(data)
     let success = false
     req.body.map(body => {
-        existingData.map(data => {
-            if (data.id === body.id && body.name && body.gender && body.address && body.contact && body.photoUrl) {
+        existingData.filter(data => {
+            // console.log(data)
+            if (data.id === body.id) {
                 data.name = body.name ? body.name : data.name;
-                data.name = body.name ? body.name : data.name;
-                data.name = body.name ? body.name : data.name;
-                data.name = body.name ? body.name : data.name;
+                data.gender = body.gender ? body.gender : data.gender;
+                data.address = body.naaddressme ? body.address : data.address;
+                data.contact = body.contact ? body.contact : data.contact;
+                data.photoUrl = body.photoUrl ? body.photoUrl : data.photoUrl;
+
                 success = true
             }
 
         })
-        
+
     })
-    console.log(existingData);
     if (success) {
-        fs.writeFileSync("user.json",JSON.stringify(existingData))
+        console.log(existingData);
+        fs.writeFileSync("user.json", JSON.stringify(existingData))
         res.json("bulk data update success")
     }
     else {
-        res.status(502).send("invalid data")
+        res.status(501).send("invalid data")
     }
 
 }
