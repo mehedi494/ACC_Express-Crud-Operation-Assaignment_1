@@ -1,5 +1,5 @@
 const fs = require("fs");
-const data = fs.readFileSync("user.json")
+const data = fs.readFileSync("./user.json")
 
 module.exports.getAUser = (req, res, next) => {
     const generateIndex = Math.floor(Math.random() * 10);
